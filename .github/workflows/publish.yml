@@ -58,5 +58,5 @@ jobs:
           files: |
               pwnagotchi-${{ env.VERSION }}-32bit.img.xz
               sha512sums.txt
-#              pwnagotchi-${{ env.VERSION }}-64bit.img.xz
+              # pwnagotchi-${{ env.VERSION }}-64bit.img.xz
           generate_release_notes: true
