@@ -497,14 +497,14 @@
     #     path: /usr/local/src/bettercap
 
     - name: download and install bettercap
-     unarchive:
-       src: "{{ packages.bettercap.url }}"
-       dest: /usr/local/bin
-       remote_src: yes
-       exclude:
-         - README.md
-         - LICENSE.md
-       mode: 0755
+      unarchive:
+        src: "{{ packages.bettercap.url }}"
+        dest: /usr/local/bin
+        remote_src: yes
+        exclude:
+          - README.md
+          - LICENSE.md
+        mode: 0755
 
     - name: clone bettercap caplets
       git:
