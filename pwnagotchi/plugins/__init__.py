@@ -1,4 +1,4 @@
-import _thread
+# import _thread
 import glob
 import importlib
 import importlib.util
@@ -6,7 +6,7 @@ import logging
 import os
 import threading
 import pwnagotchi.grid
-import prctl
+# import prctl
 
 default_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "default")
 loaded = {}
@@ -84,10 +84,11 @@ def locked_cb(lock_name, cb, *args, **kwargs):
         locks[lock_name] = threading.Lock()
 
     with locks[lock_name]:
+        cb(*args, *kwargs)
         # Setting the thread name using prctl
-        plugin_name, plugin_cb = lock_name.split("::")
-        prctl.set_name(f"{plugin_name}.{plugin_cb}")
-        cb(*args, **kwargs)
+        # plugin_name, plugin_cb = lock_name.split("::")
+        # prctl.set_name(f"{plugin_name}.{plugin_cb}")
+        # cb(*args, **kwargs)
 
 
 def one(plugin_name, event_name, *args, **kwargs):

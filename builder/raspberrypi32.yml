@@ -27,9 +27,13 @@
       caplets:
         source: "https://github.com/jayofelony/caplets.git"
         branch: "lite" # or master
+      # bettercap:
+      #   source: "https://github.com/jayofelony/bettercap.git"
+      #   branch: "lite" # or master
       bettercap:
         source: "https://github.com/jayofelony/bettercap.git"
-        branch: "lite" # or master
+        url: "https://github.com/jayofelony/bettercap/releases/download/2.32.2/bettercap-2.32.2-armhf.zip"
+        ui: "https://github.com/bettercap/ui/releases/download/v1.3.0/ui.zip"
       pwngrid:
         source: "https://github.com/jayofelony/pwngrid.git"
         url: "https://github.com/jayofelony/pwngrid/releases/download/v1.10.7/pwngrid-1.10.7-armhf.zip"
@@ -100,10 +104,13 @@
           - libtool
           - libusb-1.0-0-dev
           - make
-          - ntp
+          # - ntp
           - pkg-config
           - python3-dev
+          - python3-gpiozero
+          - python3-numpy
           - python3-pip
+          - python3-prctl
           - python3-protobuf
           - python3-setuptools
           - python3-smbus
@@ -403,22 +410,32 @@
         state: absent
         path: /usr/local/src/pwngrid
 
-    - name: download bettercap
-      git:
-        repo: "{{ packages.bettercap.source }}"
-        version: "{{ packages.bettercap.branch }} "
-        dest: /usr/local/src/bettercap
+    # - name: download bettercap
+    #   git:
+    #     repo: "{{ packages.bettercap.source }}"
+    #     version: "{{ packages.bettercap.branch }} "
+    #     dest: /usr/local/src/bettercap
 
-    - name: install bettercap 2.32.4
-      shell: "export GOPATH=$HOME/go && export PATH=/usr/local/go/bin:$PATH:$GOPATH/bin && go mod tidy && make && make install"
-      args:
-        executable: /bin/bash
-        chdir: /usr/local/src/bettercap
+    # - name: install bettercap 2.32.4
+    #   shell: "export GOPATH=$HOME/go && export PATH=/usr/local/go/bin:$PATH:$GOPATH/bin && go mod tidy && make && make install"
+    #   args:
+    #     executable: /bin/bash
+    #     chdir: /usr/local/src/bettercap
 
-    - name: remove bettercap folder
-      file:
-        state: absent
-        path: /usr/local/src/bettercap
+    # - name: remove bettercap folder
+    #   file:
+    #     state: absent
+    #     path: /usr/local/src/bettercap
+
+    - name: download and install bettercap
+      unarchive:
+        src: "{{ packages.bettercap.url }}"
+        dest: /usr/local/bin
+        remote_src: yes
+        exclude:
+          - README.md
+          - LICENSE.md
+        mode: 0755
 
     - name: clone bettercap caplets
       git:

@@ -8,7 +8,6 @@ dynamic = ["version"]
 dependencies = [
     "Pillow",
     "PyYAML",
-    "rpi.lgpio",
     "dbus-python",
     "file-read-backwards",
     "flask",

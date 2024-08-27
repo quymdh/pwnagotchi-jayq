@@ -33,13 +33,16 @@ class Wavesharelcd1in54(DisplayImpl):
     def initialize(self):
         logging.info("initializing waveshare 1.54 inch lcd display")
         from pwnagotchi.ui.hw.libs.waveshare.lcd.lcdhat1in54.LCD_1inch54 import LCD_1inch54
-        self._display = LCD_1inch54()
+        # self._display = LCD_1inch54()
+        self._display = LCD_1inch54(rst=27, dc=22, bl=18) # for Spotspear lcdhat1.54inch
         self._display.Init()
         self._display.clear()
         self._display.bl_DutyCycle(50)
 
     def render(self, canvas):
-        self._display.ShowImage(canvas)
+        # self._display.ShowImage(canvas)
+        rgb_im = canvas.convert('RGB')
+        self._display.ShowImage(rgb_im)
 
     def clear(self):
         self._display.clear()

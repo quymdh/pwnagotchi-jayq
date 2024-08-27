@@ -23,6 +23,6 @@ rpi_hardware_pwm
 pydrive2
 setuptools
 gymnasium
-numpy
-smbus
-gpiozero
+#numpy
+#smbus
+#gpiozero

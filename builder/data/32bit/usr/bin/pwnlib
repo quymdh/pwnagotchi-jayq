@@ -24,6 +24,10 @@ reload_brcm() {
 
 # starts mon0
 start_monitor_interface() {
+  if systemctl is-active --quiet NetworkManager; then
+    systemctl stop NetworkManager.service
+    systemctl stop wpa_supplicant.service
+  fi
   rfkill unblock all
   ifconfig wlan0 up
   iw dev wlan0 set power_save off
@@ -36,9 +40,14 @@ start_monitor_interface() {
 
 # stops mon0
 stop_monitor_interface() {
-  ifconfig wlan0mon down && iw dev wlan0mon del
+  if [ -f /sys/class/net/wlan0mon/operstate ]; then
+    ifconfig wlan0mon down && iw dev wlan0mon del
+  fi
   reload_brcm
   ifconfig wlan0 up
+  if ! systemctl is-active --quiet NetworkManager; then
+    systemctl start NetworkManager.service
+  fi
 }
 
 # returns 0 if the specificed network interface is up

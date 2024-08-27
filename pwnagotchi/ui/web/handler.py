@@ -1,7 +1,8 @@
 import logging
 import os
 import base64
-import _thread
+# import _thread
+import threading
 import secrets
 import json
 from functools import wraps
@@ -207,7 +208,8 @@ class Handler:
             return render_template('status.html', title=pwnagotchi.name(), go_back_after=60,
                                    message='Shutting down ...')
         finally:
-            _thread.start_new_thread(pwnagotchi.shutdown, ())
+            # _thread.start_new_thread(pwnagotchi.shutdown, ())
+            self._thread = threading.Thread(target=pwnagotchi.shutdown, args=(), name="Web Handler Shutdown", daemon = True).start()
 
     # serve a message and reboot the unit
     def reboot(self):
@@ -215,7 +217,8 @@ class Handler:
               return render_template('status.html', title=pwnagotchi.name(), go_back_after=60,
                                      message='Rebooting ...')
           finally:
-              _thread.start_new_thread(pwnagotchi.reboot, ())
+            #   _thread.start_new_thread(pwnagotchi.reboot, ())
+            self._thread = threading.Thread(target=pwnagotchi.reboot, args=(), name="Web Handler Reboot", daemon = True).start()
 
     # serve a message and restart the unit in the other mode
     def restart(self):
@@ -227,7 +230,8 @@ class Handler:
             return render_template('status.html', title=pwnagotchi.name(), go_back_after=30,
                                    message='Restarting in %s mode ...' % mode)
         finally:
-            _thread.start_new_thread(pwnagotchi.restart, (mode,))
+            # _thread.start_new_thread(pwnagotchi.restart, (mode,))
+            self._thread = threading.Thread(target=pwnagotchi.restart, args=(mode,), name="Web Handler restart", daemon = True).start()
 
     # serve the PNG file with the display image
     def ui(self):
