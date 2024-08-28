@@ -23,6 +23,8 @@
         - apt-daily.timer
         - bluetooth.service
         - ifup@wlan0.service
+        - NetworkManager.service
+        - wpa_supplicant.service
     packages:
       caplets:
         source: "https://github.com/jayofelony/caplets.git"

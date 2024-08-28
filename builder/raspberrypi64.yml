@@ -24,6 +24,8 @@
         - apt-daily.timer
         - bluetooth.service
         - ifup@wlan0.service
+        - NetworkManager.service
+        - wpa_supplicant.service
     packages:
       caplets:
         source: "https://github.com/jayofelony/caplets.git"
@@ -79,7 +81,9 @@
           - gawk
           - gcc-arm-none-eabi
           - git
+          - libatlas-base-dev
           - libc6-dev
+          - libcpuinfo-dev
           - libcurl-ocaml-dev
           - libdbus-1-dev
           - libdbus-glib-1-dev
@@ -91,6 +95,7 @@
           - libraspberrypi-dev
           - libraspberrypi-doc
           - libraspberrypi0
+          - libsleef-dev
           - libssl-dev
           - libssl-ocaml-dev
           - libtool

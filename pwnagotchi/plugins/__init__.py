@@ -102,9 +102,7 @@ def one(plugin_name, event_name, *args, **kwargs):
             try:
                 lock_name = "%s::%s" % (plugin_name, cb_name)
                 thread_name = f'{plugin_name}.{cb_name}'
-                thread = threading.Thread(target=locked_cb, args=(lock_name, callback, *args, *kwargs), name=thread_name, daemon=True)
-                thread.start()
-
+                threading.Thread(target=locked_cb, args=(lock_name, callback, *args, *kwargs), name=thread_name, daemon=True).start()
             except Exception as e:
                 logging.error("error while running %s.%s : %s" % (plugin_name, cb_name, e))
                 logging.error(e, exc_info=True)

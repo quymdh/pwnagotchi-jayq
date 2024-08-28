@@ -228,7 +228,7 @@ def setup_logging(args, config):
         handler.setFormatter(formatter)
     
     
-    logger.setLevel(logging.DEBUG if args.debug else logging.INFO)
+    logger.setLevel(logging.DEBUG if args.debug or cfg['debug'] == True else logging.INFO)
 
     if filename:
         # since python default log rotation might break session data in different files,

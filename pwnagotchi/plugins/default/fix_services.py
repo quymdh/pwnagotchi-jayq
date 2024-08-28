@@ -338,7 +338,7 @@ class FixServices(plugins.Plugin):
                         print(" wlan0mon didn't make it. trying again")
                 else:
                     logging.debug("[Fix_Services] wlan0mon loading failed, no choice but to reboot ..")
-                    pwnagotchi.reboot()
+                    # pwnagotchi.reboot()
 
             # exited the loop, so hopefully it loaded
             if tries < 3:
@@ -373,7 +373,7 @@ class FixServices(plugins.Plugin):
 
             except Exception as err:
                 logging.error("[Fix_Services wifi.recon on] %s" % repr(err))
-                pwnagotchi.reboot()
+                # pwnagotchi.reboot()
 
     # called to setup the ui elements
     def on_ui_setup(self, ui):
