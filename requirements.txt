@@ -18,7 +18,7 @@ toml
 python-dateutil
 websockets
 stable_baselines3
-rpi-lgpio
+# rpi-lgpio
 rpi_hardware_pwm
 pydrive2
 setuptools

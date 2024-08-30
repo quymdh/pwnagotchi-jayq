@@ -122,6 +122,8 @@
           - wl
           - xxd
           - zlib1g-dev
+          - macchanger
+          - resolvconf
   environment:
     ARCHFLAGS: "-arch aarch64"
     
@@ -194,7 +196,7 @@
           gpu_mem=1
           dtoverlay=dwc2
           #dtoverlay=disable-wifi
-          enable_uart=1
+          #enable_uart=1
           
           [pi02w]
           dtoverlay=spi0-2cs
